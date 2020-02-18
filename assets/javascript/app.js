@@ -10,41 +10,34 @@ var game = {
     });
   },
 
-  questions: [
-    "Who was the first female to climb the sport grade 9a+/5.15a?",
-    "What protection do you use for bouldering?",
-    "What white substance helps a climber's grip?",
-    "What move allows the climber to hang by their feet?",
-    "Who is the first man to free solo El Cap in Yosemite?"
-  ],
-  correctAnswers: [
-    "Margo Hayes",
-    "Crash Pads",
-    "Chalk",
-    "Bathang",
-    "Alex Honnold"
-  ],
-  answers2: [
-    "Ashima Shiraishi",
-    "Gloves",
-    "Dandruff",
-    "Orangu-Hang",
-    "Ronnie Van Zant"
-  ],
-
-  answers3: [
-    "Josune Bereziartu",
-    "Rope",
-    "Baking Soda",
-    "The Rim",
-    "Buzz Lightyear"
-  ],
-  answers4: [
-    "Angela Eiter",
-    "Knee Pads",
-    "Cocaine",
-    "The Upside Down Special",
-    "Tom Petty"
-  ]
+  question1: {
+    question: "Who was the first female to climb the sport grade 9a+/5.15a?",
+    correctAnswer: "Margo Hayes",
+    wrongAnswers: ["Ashima Shiraishi", "Josune Bereziartu", "Angela Eiter"]
+  },
+  question2: {
+    question: "What protection do you use for bouldering?",
+    correctAnswer: "Crashpads + Spotters",
+    wrongAnswers: [
+      "Helmets + Shin Guards",
+      "Gloves + Kneepads",
+      "Rope + Harness"
+    ]
+  },
+  question3: {
+    question: "What white substance helps a climber's grip on the rock?",
+    correctAnswer: "Chalk",
+    wrongAnswers: ["Cocaine", "Dandruff", "Baking Soda"]
+  },
+  question4: {
+    question: "What move allows the climber to hang by their feet?",
+    correctAnswer: "Bathang",
+    wrongAnswers: ["Orangu-Hang", "The Rim", "The Upside Down Special"]
+  },
+  question5: {
+    question: "Who is the first man to free solo El Cap in Yosemite?",
+    correctAnswer: "Alex Honnold",
+    wrongAnswers: ["Ronnie Van Zant", "Buzz Lightyear", "Tom Petty"]
+  }
 };
 game.startButton();
