@@ -11,7 +11,7 @@ var game = {
   },
 
   questions: [
-    "Who was the first female to climb the sport grade 5.15a?",
+    "Who was the first female to climb the sport grade 9a+/5.15a?",
     "What protection do you use for bouldering?",
     "What white substance helps a climber's grip?",
     "What move allows the climber to hang by their feet?",
