@@ -3,12 +3,32 @@
 // make correct answer the same index as the question in first answer array, make the display of them random instead perfect.....:) ??
 
 var game = {
+  //when start button is pushed, the button is moved to a purgatory div to be hidden
   startButton: function() {
     $("#startButton").on("click", function() {
       $("#startDiv").appendTo("#purgatory");
       console.log("Start button pushed, and should b in purg");
+      //then we start populating an array with our question objects
+      game.questions.push(
+        game.question1,
+        game.question2,
+        game.question3,
+        game.question4,
+        game.question5
+      );
+      console.log(game.questions);
+
+      //then we grab a random question object from the array we made
+      var randomQuestion =
+        game.questions[Math.floor(Math.random() * game.questions.length)];
+      var currentQuestion = randomQuestion.question;
+
+      console.log(currentQuestion);
+      //and display the question to the user
+      $("#Q1").html("<p>" + currentQuestion + "</p>");
     });
   },
+  questions: [],
 
   question1: {
     question: "Who was the first female to climb the sport grade 9a+/5.15a?",
@@ -17,12 +37,8 @@ var game = {
   },
   question2: {
     question: "What protection do you use for bouldering?",
-    correctAnswer: "Crashpads + Spotters",
-    wrongAnswers: [
-      "Helmets + Shin Guards",
-      "Gloves + Kneepads",
-      "Rope + Harness"
-    ]
+    correctAnswer: "Crashpads",
+    wrongAnswers: ["Helmets", "Gloves", "Ropes"]
   },
   question3: {
     question: "What white substance helps a climber's grip on the rock?",
