@@ -9,8 +9,8 @@ var game = {
   wrongGuess: 0,
   unanswered: 0,
 
-  //when start button is pushed, the button is moved to a purgatory div to be hidden
   functions: {
+    //when start button is pushed, the button is moved to a purgatory div to be hidden
     startButton: function() {
       $("#startButton").on("click", function() {
         $("#startDiv").appendTo("#purgatory");
@@ -36,19 +36,26 @@ var game = {
         //and display the question to the user
         $("#Q1").html("<p>" + game.currentQuestion + "</p>");
         //working on randomly displaying answers from answers array to user, need to pop each used random collected answer so it doesn't project duplicates
+        // var random = game.randomQuestObj.answers.slice();
+        // var item = random[Math.floor(Math.random() * random.length)];
+
         var random = game.randomQuestObj.answers.slice();
+        console.log(random);
         random = game.functions.shuffle(random);
         console.log(random);
-
         for (var i = 0; i < game.randomQuestObj.answers.length; i++) {
           console.log(random[i]);
           // how i pop this item before displaying to html?
 
-          $("#A" + i).html(random[i]);
+          //this is looping through length of answers array, and displaying each answer to a respective button, while also adding a value attribute to each button that reads the same as the button text, i am going to try and use it to check against correct answers with an on click function later
+          $("#A" + i)
+            .html(random[i])
+            .attr("value", random[i]);
         }
       });
     },
 
+    //30 second timer function
     timer30: function() {
       var timeLeft = 30;
       var timerId = setInterval(count, 1000);
@@ -63,7 +70,7 @@ var game = {
         }
       }
     },
-    //found a shuffle function called, Fisher-Yates shuffle, online, will cite it
+    //found a shuffle function called, Fisher-Yates shuffle online.
     shuffle: function(array) {
       var currentIndex = array.length,
         temporaryValue,
@@ -79,6 +86,12 @@ var game = {
       }
 
       return array;
+    },
+    //if Answer button is pushed
+    answerClick: function() {
+      $(".answer").on("click", function() {
+        console.log($(this).attr("value"));
+      });
     }
   },
 
@@ -117,3 +130,4 @@ var game = {
 };
 
 game.functions.startButton();
+game.functions.answerClick();
