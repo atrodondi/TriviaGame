@@ -5,6 +5,9 @@
 var game = {
   randomQuestObj: "",
   currentQuestion: "",
+  correctGuess: 0,
+  wrongGuess: 0,
+  unanswered: 0,
 
   //when start button is pushed, the button is moved to a purgatory div to be hidden
   functions: {
@@ -32,6 +35,17 @@ var game = {
         console.log(game.currentQuestion);
         //and display the question to the user
         $("#Q1").html("<p>" + game.currentQuestion + "</p>");
+        //working on randomly displaying answers from answers array to user, need to pop each used random collected answer so it doesn't project duplicates
+        var random = game.randomQuestObj.answers.slice();
+        random = game.functions.shuffle(random);
+        console.log(random);
+
+        for (var i = 0; i < game.randomQuestObj.answers.length; i++) {
+          console.log(random[i]);
+          // how i pop this item before displaying to html?
+
+          $("#A" + i).html(random[i]);
+        }
       });
     },
 
@@ -48,34 +62,57 @@ var game = {
           timeLeft--;
         }
       }
+    },
+    //found a shuffle function called, Fisher-Yates shuffle, online, will cite it
+    shuffle: function(array) {
+      var currentIndex = array.length,
+        temporaryValue,
+        randomIndex;
+
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
     }
   },
+
   questions: [],
 
   question1: {
     question: "Who was the first female to climb the sport grade 9a+/5.15a?",
     correctAnswer: "Margo Hayes",
-    wrongAnswers: ["Ashima Shiraishi", "Josune Bereziartu", "Angela Eiter"]
+    answers: [
+      "Margo Hayes",
+      "Ashima Shiraishi",
+      "Josune Bereziartu",
+      "Angela Eiter"
+    ]
   },
   question2: {
     question: "What protection do you use for bouldering?",
     correctAnswer: "Crashpads",
-    wrongAnswers: ["Helmets", "Gloves", "Ropes"]
+    answers: ["Crashpads", "Helmets", "Gloves", "Ropes"]
   },
   question3: {
     question: "What white substance helps a climber's grip on the rock?",
     correctAnswer: "Chalk",
-    wrongAnswers: ["Cocaine", "Dandruff", "Baking Soda"]
+    answers: ["Chalk", "Cocaine", "Dandruff", "Baking Soda"]
   },
   question4: {
     question: "What move allows the climber to hang by their feet?",
     correctAnswer: "Bathang",
-    wrongAnswers: ["Orangu-Hang", "The Rim", "The Upside Down Special"]
+    answers: ["Bathang", "Orangu-Hang", "The Rim", "The Upside Down Special"]
   },
   question5: {
     question: "Who is the first man to free solo El Cap in Yosemite?",
     correctAnswer: "Alex Honnold",
-    wrongAnswers: ["Ronnie Van Zant", "Buzz Lightyear", "Tom Petty"]
+    answers: ["Alex Honnold", "Ronnie Van Zant", "Buzz Lightyear", "Tom Petty"]
   }
 };
 
