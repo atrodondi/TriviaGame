@@ -23,7 +23,9 @@ var game = {
           game.question2,
           game.question3,
           game.question4,
-          game.question5
+          game.question5,
+          game.question6,
+          game.question7
         );
 
         //then we grab a random question object from the array we made
@@ -33,7 +35,7 @@ var game = {
 
     //30 second timer function
     timer30: function() {
-      timeLeft = 30;
+      timeLeft = 29;
       timerId = setInterval(count, 1000);
 
       function count() {
@@ -183,6 +185,7 @@ var game = {
         $(".answer").css("visibility", "hidden");
         $(".answerDiv").css("visibility", "hidden");
         $("#Q1").css("visibility", "hidden");
+
         $("#transitionText").empty();
         $("#transitionPic").empty();
         $("#startDiv").css("display", "inline-block");
@@ -236,6 +239,19 @@ var game = {
     question: "Who is the first person to free solo El Cap in Yosemite?",
     correctAnswer: "Alex Honnold",
     answers: ["Alex Honnold", "Ronnie Van Zant", "Buzz Lightyear", "Tom Petty"]
+  },
+  question6: {
+    index: 5,
+    question:
+      "If this piece of gear and its placement is 'bomber', it is the same as saying it is...?",
+    correctAnswer: "Safe",
+    answers: ["Safe", "Precarious", "About To Blow", "Delicious"]
+  },
+  question7: {
+    index: 6,
+    question: "What is the hardest part of a climb called?",
+    correctAnswer: "Crux",
+    answers: ["Crux", "Zenith", "Hardest", "Hump"]
   }
 };
 
