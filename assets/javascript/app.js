@@ -16,10 +16,8 @@ var game = {
     startButton: function() {
       $("#startButton").on("click", function() {
         $("#startDiv").appendTo("#purgatory");
-        console.log("Start button pushed, and should b in purg");
         $("#timer").css("visibility", "visible");
         $(".answer").css("visibility", "visible");
-        game.functions.timer30();
 
         //then we start populating an array with our question objects
         game.questions.push(
@@ -29,47 +27,16 @@ var game = {
           game.question4,
           game.question5
         );
-        console.log(game.questions);
 
         //then we grab a random question object from the array we made
-        game.randomQuestObj =
-          game.questions[Math.floor(Math.random() * game.questions.length)];
-        console.log(game.randomQuestObj);
-        console.log(game.randomQuestObj.index);
-        selected = game.randomQuestObj.index;
-        for (var i = 0; i < game.questions.length; i++) {
-          if (game.questions[i].index === game.randomQuestObj.index) {
-            game.selectedQuestions.push(game.questions[i]);
-            game.questions.splice(game.questions[i].index, 1);
-          }
-        }
-        console.log(game.selectedQuestions);
-        console.log(game.questions);
-        game.currentQuestion = game.randomQuestObj.question;
-
-        //and display the question to the user
-        $("#Q1").html("<p>" + game.currentQuestion + "</p>");
-        //working on randomly displaying answers from answers array to user, need to pop each used random collected answer so it doesn't project duplicates
-        // var random = game.randomQuestObj.answers.slice();
-        // var item = random[Math.floor(Math.random() * random.length)];
-
-        var random = game.randomQuestObj.answers.slice();
-        random = game.functions.shuffle(random);
-        for (var i = 0; i < game.randomQuestObj.answers.length; i++) {
-          // how i pop this item before displaying to html?
-
-          //this is looping through length of answers array, and displaying each answer to a respective button, while also adding a value attribute to each button that reads the same as the button text, i am going to try and use it to check against correct answers with an on click function later
-          $("#A" + i)
-            .html(random[i])
-            .attr("value", random[i]);
-        }
+        game.functions.generateQPage();
       });
     },
 
     //30 second timer function
     timer30: function() {
-      var timeLeft = 30;
-      var timerId = setInterval(count, 1000);
+      timeLeft = 30;
+      timerId = setInterval(count, 1000);
 
       function count() {
         if (timeLeft === -1) {
@@ -101,14 +68,11 @@ var game = {
     //if Answer button is pushed
     answerClick: function() {
       $(".answer").on("click", function() {
-        console.log($(this).attr("value"));
         var guess = $(this).attr("value");
         game.functions.nextPageTimeOut();
-        console.log(guess);
-        console.log(game.questions);
+        clearTimeout(timerId);
         if (guess === game.randomQuestObj.correctAnswer) {
           game.correctCount++;
-          console.log(game.correctCount);
           //clears html of buttons on page if correct button pushed, will be same for others
           $("#Q1").html("Correct! Good Job!");
           $(".answer").css("visibility", "hidden");
@@ -121,7 +85,6 @@ var game = {
           //running the code to go to next page. congratulate?
         } else if (guess !== game.randomQuestObj.correctAnswer) {
           game.wrongCount++;
-          console.log(game.wrongCount);
           $("#Q1").html("Nope!");
           $(".answer").css("visibility", "hidden");
           $("#transitionText").html(
@@ -137,10 +100,56 @@ var game = {
         } //if timer runs out, then go to next page, which shows correct answer
       });
     },
+    //the function that is run during a transition from one question page to another after an answer is chosen
     nextPageTimeOut: function() {
-      setTimeout(function() {
-        console.log("next page mang!");
+      transTime = setTimeout(() => {
+        transition();
       }, 5000);
+      function transition() {
+        if (game.questions.length === 0) {
+          clearTimeout;
+          //code here to go to end of game page?
+          console.log("game over");
+        } else {
+          console.log("next page mang!");
+          game.functions.generateQPage();
+        }
+      }
+    },
+    //generates a new question page. gets a random question obj from the array, gets the question from it
+    generateQPage: function() {
+      if (game.questions.length > -1) {
+        game.functions.timer30();
+        game.randomQuestObj =
+          game.questions[Math.floor(Math.random() * game.questions.length)];
+        selected = game.randomQuestObj.index;
+        for (var i = 0; i < game.questions.length; i++) {
+          if (game.questions[i].index === game.randomQuestObj.index) {
+            game.selectedQuestions.push(game.questions[i]);
+            game.questions.splice(game.questions.indexOf(game.questions[i]), 1);
+          }
+        }
+        console.log(game.selectedQuestions);
+        console.log(game.questions);
+        game.currentQuestion = game.randomQuestObj.question;
+
+        //and display the question to the user
+        $("#Q1").html("<p>" + game.currentQuestion + "</p>");
+
+        //here i am making a variable copy of the array so it doesnt alter the main array
+        //then i shuffle the array so it appears random on each play
+        var random = game.randomQuestObj.answers.slice();
+        random = game.functions.shuffle(random);
+        $("#transitionText").empty();
+        $("#transitionPic").empty();
+        $(".answer").css("visibility", "visible");
+        for (var i = 0; i < game.randomQuestObj.answers.length; i++) {
+          //this is looping through length of answers array, and displaying each answer to a respective button, while also adding a value attribute to each button that reads the same as the button text, i am going to try and use it to check against correct answers with an on click function later
+          $("#A" + i)
+            .html(random[i])
+            .attr("value", random[i]);
+        }
+      }
     }
   },
 
