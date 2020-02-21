@@ -11,9 +11,11 @@ var game = {
     //when start button is pushed, the button is moved to a purgatory div to be hidden
     startButton: function() {
       $("#startButton").on("click", function() {
-        $("#startDiv").appendTo("#purgatory");
+        $("#startDiv").css("display", "none");
+        $("#Q1").css("visibility", "visible");
         $("#timer").css("visibility", "visible");
         $(".answer").css("visibility", "visible");
+        $(".answerDiv").css("visibility", "visible");
 
         //then we start populating an array with our question objects
         game.questions.push(
@@ -37,7 +39,7 @@ var game = {
       function count() {
         if (timeLeft === -1) {
           clearTimeout(timerId);
-          unanswered++;
+          game.unanswered++;
           game.functions.timeRanOut();
           // make a  function elsewhere for unanswered html change, like show answer, picture, etc. then in 5 seconds change to a new question probably and call it here?
         } else {
@@ -97,7 +99,7 @@ var game = {
         } //if timer runs out, then go to next page, which shows correct answer
       });
     },
-    //the function that is run during a transition from one question page to another after an answer is chosen
+    //the function that is run during a transition from one question page to another after an answer is chosen -> END OF GAME CONdition is in here
     nextPageTimeOut: function() {
       transTime = setTimeout(() => {
         transition();
@@ -110,13 +112,17 @@ var game = {
           $("#transitionText").empty();
           $("#transitionPic").empty();
           $("#Q1").html("Send it! Here are your 'grades' !");
+          $(".endStat").css("display", "block");
           $("#answerDiv0").html(
-            "<h1>Correct Answers: " + game.correctCount + "</h1>"
+            "<h2 id='endCount1'>Correct Answers: " + game.correctCount + "</h2>"
           );
           $("#answerDiv1").html(
-            "<h1>Wrong Answers: " + game.wrongCount + "</h1>"
+            "<h2 id='endCount2'>Wrong Answers: " + game.wrongCount + "</h2>"
           );
-          $("#answerDiv2").html("<h1>Unaswered: " + game.unanswered + "</h1>");
+          $("#answerDiv2").html(
+            "<h2 id ='endCount3'>Unaswered: " + game.unanswered + "</h2>"
+          );
+          $("#restart").css("visibility", "visible");
         } else {
           console.log("next page mang!");
           game.functions.generateQPage();
@@ -159,6 +165,7 @@ var game = {
       }
     },
 
+    //what happens if time runs out during a question
     timeRanOut: function() {
       game.functions.nextPageTimeOut();
       $("#Q1").html(
@@ -167,6 +174,29 @@ var game = {
       );
       $(".answer").empty();
       $("#transitionPic").html("<img src='assets/images/watch.jpg'>");
+    },
+    //what happens when restart button is pushed after game is over
+    restart: function() {
+      $("#restart").on("click", function() {
+        console.log(game.questions);
+        $("#timer").css("visibility", "hidden");
+        $(".answer").css("visibility", "hidden");
+        $(".answerDiv").css("visibility", "hidden");
+        $("#Q1").css("visibility", "hidden");
+        $("#transitionText").empty();
+        $("#transitionPic").empty();
+        $("#startDiv").css("display", "inline-block");
+        $(".endStat").css("display", "none");
+
+        $("#restart").css("visibility", "hidden");
+
+        game.selectedQuestions = [];
+        game.correctCount = 0;
+        game.wrongCount = 0;
+        game.unanswered = 0;
+        game.randomQuestObj = "";
+        game.currentQuestion = "";
+      });
     }
   },
 
@@ -193,7 +223,7 @@ var game = {
     index: 2,
     question: "What white substance helps a climber's grip on the rock?",
     correctAnswer: "Chalk",
-    answers: ["Chalk", "Cocaine", "Dandruff", "Baking Soda"]
+    answers: ["Chalk", "Powdered Sugar", "Dandruff", "Baking Soda"]
   },
   question4: {
     index: 3,
@@ -211,3 +241,4 @@ var game = {
 
 game.functions.startButton();
 game.functions.answerClick();
+game.functions.restart();
