@@ -1,7 +1,3 @@
-// // once the start button is pushed, i am going to randomly grab  number, or item depending on how i write it, from an array and then display the corresponding question of that random # or item as the first question of the game. the empty answer divs will then be filled with the appropriate 4 answer pairs or mates of the initial randomly chosen array item.how to do this? not sure yet.
-
-// make correct answer the same index as the question in first answer array, make the display of them random instead perfect.....:) ??
-
 var game = {
   randomQuestObj: "",
   currentQuestion: "",
@@ -41,6 +37,8 @@ var game = {
       function count() {
         if (timeLeft === -1) {
           clearTimeout(timerId);
+          unanswered++;
+          game.functions.timeRanOut();
           // make a  function elsewhere for unanswered html change, like show answer, picture, etc. then in 5 seconds change to a new question probably and call it here?
         } else {
           $("#timer").html("Time Remaining: " + timeLeft + " seconds");
@@ -85,11 +83,10 @@ var game = {
           //running the code to go to next page. congratulate?
         } else if (guess !== game.randomQuestObj.correctAnswer) {
           game.wrongCount++;
-          $("#Q1").html("Nope!");
-          $(".answer").css("visibility", "hidden");
-          $("#transitionText").html(
-            "The correct answer was: " + game.randomQuestObj.correctAnswer
+          $("#Q1").html(
+            "Nope! The correct answer was: " + game.randomQuestObj.correctAnswer
           );
+          $(".answer").css("visibility", "hidden");
           $("#transitionPic").html(
             '<img src=" assets/images/' +
               game.randomQuestObj.correctAnswer +
@@ -107,9 +104,19 @@ var game = {
       }, 5000);
       function transition() {
         if (game.questions.length === 0) {
-          clearTimeout;
           //code here to go to end of game page?
           console.log("game over");
+          $("#timer").empty();
+          $("#transitionText").empty();
+          $("#transitionPic").empty();
+          $("#Q1").html("Send it! Here are your 'grades' !");
+          $("#answerDiv0").html(
+            "<h1>Correct Answers: " + game.correctCount + "</h1>"
+          );
+          $("#answerDiv1").html(
+            "<h1>Wrong Answers: " + game.wrongCount + "</h1>"
+          );
+          $("#answerDiv2").html("<h1>Unaswered: " + game.unanswered + "</h1>");
         } else {
           console.log("next page mang!");
           game.functions.generateQPage();
@@ -150,6 +157,16 @@ var game = {
             .attr("value", random[i]);
         }
       }
+    },
+
+    timeRanOut: function() {
+      game.functions.nextPageTimeOut();
+      $("#Q1").html(
+        "Oops! You ran out of time. The correct answer was: " +
+          game.randomQuestObj.correctAnswer
+      );
+      $(".answer").empty();
+      $("#transitionPic").html("<img src='assets/images/watch.jpg'>");
     }
   },
 
@@ -186,7 +203,7 @@ var game = {
   },
   question5: {
     index: 4,
-    question: "Who is the first man to free solo El Cap in Yosemite?",
+    question: "Who is the first person to free solo El Cap in Yosemite?",
     correctAnswer: "Alex Honnold",
     answers: ["Alex Honnold", "Ronnie Van Zant", "Buzz Lightyear", "Tom Petty"]
   }
