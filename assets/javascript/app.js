@@ -17,17 +17,6 @@ var game = {
         $(".answer").css("visibility", "visible");
         $(".answerDiv").css("visibility", "visible");
 
-        //then we start populating an array with our question objects
-        game.questions.push(
-          game.question1,
-          game.question2,
-          game.question3,
-          game.question4,
-          game.question5,
-          game.question6,
-          game.question7
-        );
-
         //then we grab a random question object from the array we made
         game.functions.generateQPage();
       });
@@ -203,56 +192,61 @@ var game = {
     }
   },
 
-  questions: [],
-
-  question1: {
-    index: 0,
-    question: "Who was the first female to climb the sport grade 9a+/5.15a?",
-    correctAnswer: "Margo Hayes",
-    answers: [
-      "Margo Hayes",
-      "Ashima Shiraishi",
-      "Josune Bereziartu",
-      "Angela Eiter"
-    ]
-  },
-  question2: {
-    index: 1,
-    question: "What protection do you use for bouldering?",
-    correctAnswer: "Crashpads",
-    answers: ["Crashpads", "Helmets", "Gloves", "Ropes"]
-  },
-  question3: {
-    index: 2,
-    question: "What white substance helps a climber's grip on the rock?",
-    correctAnswer: "Chalk",
-    answers: ["Chalk", "Powdered Sugar", "Dandruff", "Baking Soda"]
-  },
-  question4: {
-    index: 3,
-    question: "What move allows the climber to hang by their feet?",
-    correctAnswer: "Bathang",
-    answers: ["Bathang", "Orangu-Hang", "The Rim", "The Upside Down Special"]
-  },
-  question5: {
-    index: 4,
-    question: "Who is the first person to free solo El Cap in Yosemite?",
-    correctAnswer: "Alex Honnold",
-    answers: ["Alex Honnold", "Ronnie Van Zant", "Buzz Lightyear", "Tom Petty"]
-  },
-  question6: {
-    index: 5,
-    question:
-      "If this piece of gear and its placement is 'bomber', it is the same as saying it is...?",
-    correctAnswer: "Safe",
-    answers: ["Safe", "Precarious", "About To Blow", "Delicious"]
-  },
-  question7: {
-    index: 6,
-    question: "What is the hardest part of a climb called?",
-    correctAnswer: "Crux",
-    answers: ["Crux", "Zenith", "Hardest", "Hump"]
-  }
+  questions: [
+    {
+      index: 0,
+      question: "Who was the first female to climb the sport grade 9a+/5.15a?",
+      correctAnswer: "Margo Hayes",
+      answers: [
+        "Margo Hayes",
+        "Ashima Shiraishi",
+        "Josune Bereziartu",
+        "Angela Eiter"
+      ]
+    },
+    {
+      index: 1,
+      question: "What protection do you use for bouldering?",
+      correctAnswer: "Crashpads",
+      answers: ["Crashpads", "Helmets", "Gloves", "Ropes"]
+    },
+    {
+      index: 2,
+      question: "What white substance helps a climber's grip on the rock?",
+      correctAnswer: "Chalk",
+      answers: ["Chalk", "Powdered Sugar", "Dandruff", "Baking Soda"]
+    },
+    {
+      index: 3,
+      question: "What move allows the climber to hang by their feet?",
+      correctAnswer: "Bathang",
+      answers: ["Bathang", "Orangu-Hang", "The Rim", "The Upside Down Special"]
+    },
+    {
+      index: 4,
+      question: "Who is the first person to free solo El Cap in Yosemite?",
+      correctAnswer: "Alex Honnold",
+      answers: [
+        "Alex Honnold",
+        "Ronnie Van Zant",
+        "Buzz Lightyear",
+        "Tom Petty"
+      ]
+    },
+    {
+      index: 5,
+      question:
+        "If this piece of gear and its placement is 'bomber', it is the same as saying it is...?",
+      correctAnswer: "Safe",
+      answers: ["Safe", "Precarious", "About To Blow", "Delicious"]
+    },
+    {
+      index: 6,
+      question: "What is the hardest part of a climb called?",
+      correctAnswer: "Crux",
+      answers: ["Crux", "Zenith", "Hardest", "Hump"]
+    }
+  ]
 };
 
 game.functions.startButton();

@@ -3,7 +3,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  height: 900px;
+  height: 1000px;
   overflow: hidden;
 }
 
@@ -76,4 +76,11 @@ h2 {
 
 .endStat {
   display: none;
+}
+
+#transitionPic {
+  max-width: 650px;
+  max-height: 500px;
+  justify-content: center;
+  margin: auto;
 }
