@@ -174,7 +174,7 @@ var game = {
         "Oops! You ran out of time. The correct answer was: " +
           game.randomQuestObj.correctAnswer
       );
-      $(".answer").empty();
+      $(".answer").css("visibility", "hidden");
       $("#transitionPic").html("<img src='assets/images/watch.jpg'>");
     },
     //what happens when restart button is pushed after game is over
