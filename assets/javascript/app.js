@@ -182,6 +182,7 @@ var game = {
 
         $("#restart").css("visibility", "hidden");
 
+        game.questions = game.selectedQuestions;
         game.selectedQuestions = [];
         game.correctCount = 0;
         game.wrongCount = 0;
