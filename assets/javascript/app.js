@@ -98,7 +98,7 @@ var game = {
       function transition() {
         if (game.questions.length === 0) {
           //code here to go to end of game page?
-          console.log("game over");
+         
           $("#timer").empty();
           $("#transitionText").empty();
           $("#transitionPic").empty();
@@ -115,7 +115,7 @@ var game = {
           );
           $("#restart").css("visibility", "visible");
         } else {
-          console.log("next page mang!");
+          
           game.functions.generateQPage();
         }
       }
@@ -133,8 +133,6 @@ var game = {
             game.questions.splice(game.questions.indexOf(game.questions[i]), 1);
           }
         }
-        console.log(game.selectedQuestions);
-        console.log(game.questions);
         game.currentQuestion = game.randomQuestObj.question;
 
         //and display the question to the user
@@ -169,7 +167,6 @@ var game = {
     //what happens when restart button is pushed after game is over
     restart: function() {
       $("#restart").on("click", function() {
-        console.log(game.questions);
         $("#timer").css("visibility", "hidden");
         $(".answer").css("visibility", "hidden");
         $(".answerDiv").css("visibility", "hidden");
